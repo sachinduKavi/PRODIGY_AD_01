@@ -20,15 +20,16 @@ class _CalculatorState extends State<Calculator> {
   bool firstNumber = true, numTurn = true, onEqual = false;
   double fontSize = 5;
 
-  void onEqualFunction() {
-
-  }
 
   // When user pressed a number in number pad
   void numberPressed(Object num) {
     numTurn = true;
     fontSize = 5;
 
+    if(onEqual) {
+      onEqual = false;
+      clearAll();
+    }
 
     setState(() {
       // Whole number sting displays on the main display
@@ -96,11 +97,12 @@ class _CalculatorState extends State<Calculator> {
 
   void clearAll() {
     mainNum = "";
+    nowNumber = "";
+    ansValue = 0;
     currentOperator = "null";
     firstNumber = true;
     numTurn = true;
     onEqual = false;
-
   }
 
   @override
@@ -186,8 +188,8 @@ class _CalculatorState extends State<Calculator> {
                       splashColor: Colors.white,
                       onTap: () {
                         setState(() {
-                          mainNum = "";
                           historyNum = "";
+                          clearAll();
                         });
                       },
                       child: Ink(
